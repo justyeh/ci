@@ -3,6 +3,8 @@ const fs = require('fs')
 const readline = require('readline')
 const chalk = require('chalk')
 
+const maxBuffer = 100 * 1024 * 1024 // 设置缓冲区大小 100Mb
+
 const IGNORE_PROJECT_LIST = [
 	'ci',
 	'registration',
@@ -26,8 +28,8 @@ function isDiffBranch({ targetBranch, sourceBranch, cwd }) {
 	try {
 		execSync(`git checkout ${sourceBranch} && git pull`, { cwd })
 		execSync(`git checkout ${targetBranch} && git pull`, { cwd })
-		const diff = execSync(`git diff ${targetBranch} ${sourceBranch}`, { cwd })
-		return diff.toString().length > 0
+		const diff = execSync(`git diff ${targetBranch} ${sourceBranch}`, { cwd, maxBuffer })
+		return diff.length > 0
 	} catch (error) {
 		return false
 	}
