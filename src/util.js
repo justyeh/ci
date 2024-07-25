@@ -31,6 +31,9 @@ function isDiffBranch({ targetBranch, sourceBranch, cwd }) {
 		const diff = execSync(`git diff ${targetBranch} ${sourceBranch}`, { cwd, maxBuffer })
 		return diff.length > 0
 	} catch (error) {
+		if (JSON.stringify(error).indexOf('did not match any file(s) known to git') > -1) {
+			console.log(chalk.red(error))
+		}
 		return false
 	}
 }
