@@ -5,7 +5,7 @@ async function main() {
 	const targetBranch = 'release'
 	const sourceBranch = 'uat'
 
-	const diffProjectList = getDiffProjectList({ targetBranch, sourceBranch })
+	const diffProjectList = getDiffProjectList({ targetBranch, sourceBranch }, false)
 	if (diffProjectList.length === 0) {
 		console.log(chalk.bgYellow.white('没有项目需要合并'))
 		return

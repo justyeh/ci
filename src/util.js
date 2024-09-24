@@ -24,9 +24,9 @@ const IGNORE_PROJECT_LIST = [
 
 const DESKTOP_PATH = '/Users/aikangcloud/Desktop/'
 
-function isDiffBranch({ targetBranch, sourceBranch, cwd }) {
+function isDiffBranch({ targetBranch, sourceBranch, cwd, isFetch }) {
 	try {
-		execSync(`git fetch`)
+		isFetch && execSync(`git fetch`)
 		execSync(`git checkout ${sourceBranch} && git pull`, { cwd })
 		execSync(`git checkout ${targetBranch} && git pull`, { cwd })
 		const diff = execSync(`git diff ${targetBranch} ${sourceBranch}`, { cwd, maxBuffer })
@@ -73,7 +73,7 @@ function getReadlineInput() {
 	})
 }
 
-function getDiffProjectList({ targetBranch, sourceBranch }) {
+function getDiffProjectList({ targetBranch, sourceBranch }, isFetch) {
 	const diffProjectList = []
 
 	const list = getPorjectList()
@@ -82,7 +82,7 @@ function getDiffProjectList({ targetBranch, sourceBranch }) {
 		console.log(chalk.blue('检查项目：' + project))
 
 		const cwd = DESKTOP_PATH + project
-		const isDiff = isDiffBranch({ targetBranch, sourceBranch, cwd })
+		const isDiff = isDiffBranch({ targetBranch, sourceBranch, cwd, isFetch })
 		if (isDiff) {
 			diffProjectList.push(project)
 		} else {

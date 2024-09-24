@@ -9,7 +9,7 @@ async function main() {
 	}
 	const [targetBranch, sourceBranch] = branchs
 
-	const diffProjectList = await getDiffProjectList({ targetBranch, sourceBranch })
+	const diffProjectList = await getDiffProjectList({ targetBranch, sourceBranch }, true)
 	if (diffProjectList.length > 0) {
 		console.log(chalk.bgYellow.white('以下项目需要合并代码：\n\r' + diffProjectList.join('\n\r')))
 	} else {
