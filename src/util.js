@@ -26,6 +26,7 @@ const DESKTOP_PATH = '/Users/aikangcloud/Desktop/'
 
 function isDiffBranch({ targetBranch, sourceBranch, cwd }) {
 	try {
+		execSync(`git fetch`)
 		execSync(`git checkout ${sourceBranch} && git pull`, { cwd })
 		execSync(`git checkout ${targetBranch} && git pull`, { cwd })
 		const diff = execSync(`git diff ${targetBranch} ${sourceBranch}`, { cwd, maxBuffer })
@@ -95,6 +96,7 @@ function getDiffProjectList({ targetBranch, sourceBranch }) {
 
 function mergeCode({ targetBranch, sourceBranch, cwd }) {
 	try {
+		execSync(`git fetch`)
 		execSync(`git checkout ${sourceBranch} && git pull`, { cwd })
 		execSync(`git checkout ${targetBranch} && git pull`, { cwd })
 		execSync(`git merge ${sourceBranch}`, { cwd })
