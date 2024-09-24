@@ -98,7 +98,7 @@ function mergeCode({ targetBranch, sourceBranch, cwd }) {
 	try {
 		execSync(`git checkout ${sourceBranch} && git pull`, { cwd })
 		execSync(`git checkout ${targetBranch} && git pull`, { cwd })
-		execSync(`git merge ${sourceBranch}`, { cwd })
+		execSync(`git merge --no-ff ${sourceBranch}`, { cwd })
 		execSync(`git push`, { cwd })
 		execSync(`git checkout test`, { cwd })
 		return true
